@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Редактирование профиля {{user.name}}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    </head>
+    <body style="background-image:url(http://hq-oboi.ru/photo/kosmicheskie_prostory_na_rabochiy_stol_kosmos_1920x1200.jpg)">
+        <div class="container">
+            <a href="/" class="btn btn-default">На главную</a>
+            <form role="form" class="form-horizontal" action="/users/{{user.name}}" method="POST" >
+                <div class="form-group">
+                    <label for="full_name">Полное имя</label>
+                    <input type="text" class="form-control" id="full_name" name="full_name" value="{{user.full_name}}">
+                </div>
+                <div class="form-group">
+                    <label for="position">Должность</label>
+                    <select id="position" name="position">
+                        <option value="tutor" {%if user.posotion=='tutor' %} selected="selected" {% endif%}>Преподаватель</option>
+                        <option value="student" {%if user.posotion=='tstudent' %} selected="selected" {% endif%}>Студент</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="skills">Навыки</label>
+                    <input type="text" class="form-control" id="skills" name="skills" value="{{user.skills}}">
+                </div>
+                <div>
+                    <label for="photo">Фоточка</label>
+                    <input type="url" class="form-control" id="photo" name="photo" value="{{user.photo}}">
+                           </div>
+
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+        </div>
+    </body>
+</html>
