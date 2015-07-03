@@ -1,0 +1,23 @@
+import datetime
+
+def sort_news(news):
+    news = list(news)
+    #news.sort(
+   #    key= lambda x: (len(x['likes']), x['time']),
+    #    reverse=True
+  # )
+    def get_key(x):
+        nlikes = len(x['likes'])
+        ntags = len(x['tags'])
+        cur_time = datetime.datetime.utcnow()
+        post_time = x['time']
+        # get gifference
+        delta = cur_time - post_time
+        # get total seconds from delta
+        delta = delta.total_seconds()/3600
+        return (nlikes * ntags)/delta
+    news.sort(
+        key = get_key,
+        reverse=True
+    )
+    return news
