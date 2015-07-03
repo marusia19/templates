@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Список пользователей</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    </head>
+    <body style="background-image:url(http://img0.joyreactor.cc/pics/post/full/adventure-time-Jake-ты-просто-космос-adventure-time-art-483701.jpeg)">
+        <div class="container">
+            <a href="/" class="btn btn-default">На главную</a>
+            <h3>Список пользователей</h3>
+            <table class="table">
+                <thead>
+                    <th>Имя</th>
+                    <th>Полное имя</th>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td><a href="/users/{{user.name}}">{{user.name}}</a></td>
+                        <td>{{user.full_name}}</td>
+                    <tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
