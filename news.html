@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <title>My Web App</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                {% if current_user and current_user.is_authenticated() %}
+                    Вы вошли как {{current_user.data.full_name}} <a href="/logout" class="btn btn-warning navbar-btn">Выход</a>
+                {% else %}
+                    <a href="/login" class="btn btn-primary navbar-btn">Вход</a>
+                {% endif %}
+            </div>
+        </nav>
+        <div class="container">
+            <h2>Рекомендуемые новости</h2>
+            <div>
+                <div class="container">
+                    {% for post in news %}
+                        <div class="well">
+                            <h3>
+                                {{post.author}}: {{post.title}}
+                                {% for tag in post.tags%}
+                                    <a href="/?tag={{tag}}">
+                                        <span class="label label-info">
+                                            {{tag}}
+                                        </span>
+                                    </a>
+                                {% endfor %}
+                            </h3>
+                            <p>{{post.text}}</p>
+                            <div class="container">
+                                {% if post.likes %}
+                                    Понравилось:
+                                    {% for uname in post.likes %}
+                                        <a href="/users/{{uname}}">{{uname}}</a>
+                                    {% else %}
+                                        Пока никому...
+                                    {% endfor %}
+                                {% endif %}
+                                {% if current_user and current_user.is_authenticated() %}
+                                <form role="form" class="form-inline" action="/news/{{post._id}}" method="post">
+                                    <input type="hidden" name="action" value="like">
+                                    <button class="btn btn-{% if current_user.data.name in post.likes%}success{% else %}default{% endif %}" type="submit"><span class="glyphicon glyphicon-heart">&nbsp;Like</span></button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
