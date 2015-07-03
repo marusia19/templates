@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{user.name}}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    </head>
+    <body style="background-image:url(http://apikabu.ru/img_n/2012-11_3/4d8.jpg)">
+        <div class="container">
+            <a href="/" class="btn btn-default">На главную</a>
+            <h3>
+                {{user.name}} <a href="/users/{{user.name}}/edit" class="btn btn-primary">Редактировать</a>
+            </h3>
+            <div class="progress">
+                <div class="progress-bar" style="width: {{user.progress}}%"></div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Полное имя</div>
+                <div class="panel-body">
+                    {{user.full_name}}
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Должность</div>
+                <div class="panel-body">
+                    {% if user.position == "tutor" %}
+                        Преподаватель
+                    {% elif user.position == "student" %}
+                        Студент
+                    {% else %}
+                        <span class="label label-warning">Какая-то неизвестная: {{users.position}}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Навыки</div>
+                <div class="panel-body">
+                    {% for skill in user.skills.split(",") %}
+                        {% if ' ' in skill.strip() %}
+                        <span class="label label-primary">{{skill.strip()}}</span>
+                        {% else %}
+                            <span class="label label-info">{{skill.strip()}}</span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    <img src="{{user.photo}}" width="50%"
+    </body>
+</html>
